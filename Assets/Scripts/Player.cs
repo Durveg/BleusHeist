@@ -37,7 +37,6 @@ public class Player : MonoBehaviour {
 
 	private float velocityXsmoothing;
 
-	private float gravity;
 	private float jumpVelocity;
 
 	private Vector2 velocity;
@@ -46,7 +45,7 @@ public class Player : MonoBehaviour {
 
 	private bool jumpDown = false;
 	private bool firstJumpFrame = false;
-	private bool ceilingSticking = false;
+	private bool movingOutsideSource = false;
 
 	// Use this for initialization
 	void Start () {
@@ -59,26 +58,24 @@ public class Player : MonoBehaviour {
 	{
 		controllerData.JumpButtonDown += OnJumpInputDown;
 		controllerData.JumpButtonUp += OnJumpInputUp;
+		controllerData.MovePlayerGrapple += SetMoveTowards;
 	}
 
 	void OnDisable()
 	{
 		controllerData.JumpButtonDown -= OnJumpInputDown;
 		controllerData.JumpButtonUp -= OnJumpInputUp;
+		controllerData.MovePlayerGrapple -= SetMoveTowards;
 	}
 
 	private void CalculateGravityAndJumpVel()
 	{
-		gravity = -1 * (2 * jumpHeight) / (Mathf.Pow(timeToJumpApex, 2));
-		jumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
+		Controller2D.gravity = -1 * (2 * jumpHeight) / (Mathf.Pow(timeToJumpApex, 2));
+		jumpVelocity = Mathf.Abs(Controller2D.gravity) * timeToJumpApex;
 //		wallSlideSpeedMax = gravity / 4;
-		Debug.Log("Gravity: " + gravity + " Jump Velocity: " + jumpVelocity);
+		Debug.Log("Gravity: " + Controller2D.gravity + " Jump Velocity: " + jumpVelocity);
 	}
-
-	public void SetDirectionalInput (Vector2 input) {
-		controllerData.inputDirection = input;
-	}
-
+		
 	public void OnJumpInputDown() 
 	{
 		jumpDown = true;
@@ -90,13 +87,46 @@ public class Player : MonoBehaviour {
 		jumpDown = false;
 	}
 
+	public void SetMoveTowards(Vector2 targetPosition)
+	{
+		if(movingOutsideSource == false)
+		{
+			StartCoroutine(MoveTowards(targetPosition));
+		}
+	}
+
+	private IEnumerator MoveTowards(Vector2 targetPosition)
+	{
+		movingOutsideSource = true;
+		while(controllerData.onCeiling == false)
+		{
+			if(controller.collisions.above == true)
+			{
+				controllerData.onCeiling = true;
+				break;
+			}
+
+			controller.Move(targetPosition * Time.deltaTime);
+			yield return null;
+		}
+
+		movingOutsideSource = false;
+	}
+
 	// Update is called once per frame
 	void Update () {
+
+		if(movingOutsideSource == true)
+		{
+			return;
+		}
 
 		int wallDirX = (controller.collisions.left) ? -1 : 1;
 		float targetVelocityX = controllerData.inputDirection.x * moveSpeed;
 		velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXsmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
 
+		//Handel moving when on a wall
+		//============================//
 		bool wallSliding = false;
 		if((controller.collisions.left || controller.collisions.right) && controller.collisions.below == false)// && velocity.y < 0)
 		{
@@ -123,15 +153,17 @@ public class Player : MonoBehaviour {
 			}
 		}
 
+		//adjust gravity when hitting head or landing on ground.
+		//=====================================================//
 		if((controller.collisions.above || controller.collisions.below) && wallSliding == false)
 		{
 			velocity.y = 0;
 		}
 			
-		ceilingSticking = false;
+		controllerData.onCeiling = false;
 		if(controller.collisions.above == true)
 		{
-			ceilingSticking = true;
+			controllerData.onCeiling = true;
 		}
 
 		if(jumpDown == true && firstJumpFrame == false)
@@ -159,17 +191,18 @@ public class Player : MonoBehaviour {
 				velocity.y = jumpVelocity;
 			}
 
-			if(ceilingSticking == true)
+			if(controllerData.onCeiling == true)
 			{
 				velocity.y = -jumpVelocity;
 			}
 		}
 			
-		if(wallSliding == false && ceilingSticking == false)
+		if(wallSliding == false && controllerData.onCeiling == false)
 		{
-			velocity.y += gravity * Time.deltaTime;
+			velocity.y += Controller2D.gravity * Time.deltaTime;
 		}
 
+		controllerData.playerVelocity = this.velocity;
 		controller.Move(velocity * Time.deltaTime);
 	}
 }

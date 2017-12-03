@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 public class Controller2D : MonoBehaviour {
 
+	public static float gravity;
+
 	public LayerMask collisionMask;
 
 	public int horizontalRayCount = 4;

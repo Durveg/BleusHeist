@@ -21,5 +21,10 @@ public class PlayerInput : MonoBehaviour {
 		{
 			controllerData.InvkokeJumpButtonUp();
 		}
+
+		if(Input.GetButtonDown("Grapple"))
+		{
+			controllerData.InvokeGrappleButtonDown();
+		}
 	}
 }
