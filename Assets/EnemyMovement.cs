@@ -16,9 +16,15 @@ public class EnemyMovement : MonoBehaviour {
 	[SerializeField]
 	private Vector2 interestPoint;
 
-	private Controller2D controller;
+	public Controller2D controller;
 	private Vector2 velocity;
 	private Vector2 inputDirection;
+
+	[SerializeField]
+	private Collider2D viewArea;
+	[SerializeField]
+	private LookAtPoint lookAt;
+	private bool interestPointInView = false;
 
 	public void SetInterestPoint(Vector2 position)
 	{
@@ -35,25 +41,29 @@ public class EnemyMovement : MonoBehaviour {
 	void Update () {
 
 		inputDirection = Vector2.zero;
-		if((Mathf.Abs(interestPoint.x - transform.position.x) > 0.5f))
+		float distance = Mathf.Abs(interestPoint.x - transform.position.x);
+		if(interestPointInView == false && ( distance > 1.25f))
 		{
 			Vector2 direction = (interestPoint - (Vector2)this.transform.position).normalized;
 			inputDirection.x = direction.x;
+
+			interestPointInView = viewArea.bounds.Contains(interestPoint);
 		}
+
+		lookAt.UpdateLookAt(interestPoint);
 
 		float targetVelocityX = inputDirection.x * moveSpeed;
 		velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXsmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
-
 		velocity.y += Controller2D.gravity * Time.deltaTime;
+
 		controller.Move(velocity * Time.deltaTime);
 
-
-		if(Mathf.Sign(this.transform.localScale.x) != Mathf.Sign(this.controller.collisions.faceDir))
-		{
-			Vector3 scale = this.transform.localScale;
-			scale.x *= -1;
-			this.transform.localScale = scale;
-		}
+//		if(Mathf.Sign(this.transform.localScale.x) != Mathf.Sign(this.controller.collisions.faceDir))
+//		{
+//			Vector3 scale = this.transform.localScale;
+//			scale.x *= -1;
+//			this.transform.localScale = scale;
+//		}
 
 	}
 }
