@@ -63,6 +63,11 @@ public class ColorEnemyVisionCone : MonoBehaviour {
 		{
 			if(hit.collider != null && hit.collider.transform.gameObject != enemyGameObject)
 			{
+				if(hit.collider != null && (hit.collider.gameObject.layer == 15 || hit.collider.gameObject.layer == 16))
+				{
+					break;
+				}
+
 				if(hit.collider != null && hit.collider.transform.tag == "Player")
 				{
 					playerIsInLOS = true;
