@@ -13,9 +13,6 @@ public class EnemyMovement : MonoBehaviour {
 	[SerializeField]
 	private float accelerationTimeAirborne = .2f;
 
-	[SerializeField]
-	private Vector2 interestPoint;
-
 	public Controller2D controller;
 	private Vector2 velocity;
 	private Vector2 inputDirection;
@@ -24,30 +21,101 @@ public class EnemyMovement : MonoBehaviour {
 	private Collider2D viewArea;
 	[SerializeField]
 	private LookAtPoint lookAt;
+	[SerializeField]
+	private Vector2 interestPoint;
+
 	private bool interestPointInView = false;
+	private bool investigateInterestPoint = false;
+	[SerializeField]
+	private float timeToInvestigateInterest;
+	[SerializeField]
+	private float timeBetweenWaypoints;
+	private float waitTime = 0;
+
+
+	[SerializeField]
+	private Transform pathHolder;
+	private Vector2[] waypoints;
+	private int waypointIndex;
+
+	void OnDrawGizmos()
+	{
+		foreach(Transform waypoint in pathHolder)
+		{
+			Gizmos.DrawSphere(waypoint.position, .3f);
+		}
+	}
 
 	public void SetInterestPoint(Vector2 position)
 	{
 		interestPoint = position;
+		investigateInterestPoint = true;
 	}
 
 	// Use this for initialization
 	void Start () {
 
 		controller = GetComponent<Controller2D>();
+		waypoints = new Vector2[pathHolder.childCount];
+		for(int i = 0; i < waypoints.Length; i++)
+		{
+			waypoints[i] = pathHolder.GetChild(i).position;
+		}
+
+		this.transform.position = waypoints[0];
+		interestPoint = waypoints[0];
 	}
-	
+
+	private void UpdateWaypoint()
+	{
+
+	}
+
 	// Update is called once per frame
 	void Update () {
 
 		inputDirection = Vector2.zero;
-		float distance = Mathf.Abs(interestPoint.x - transform.position.x);
-		if(interestPointInView == false && ( distance > 1.25f))
-		{
-			Vector2 direction = (interestPoint - (Vector2)this.transform.position).normalized;
-			inputDirection.x = direction.x;
+		float distanceX = Mathf.Abs(interestPoint.x - transform.position.x);
 
-			interestPointInView = viewArea.bounds.Contains(interestPoint);
+		if(investigateInterestPoint == true)
+		{
+			//Track noise;
+			if(interestPointInView == false && (distanceX > 1.25f))
+			{
+				Vector2 direction = (interestPoint - (Vector2)this.transform.position).normalized;
+				inputDirection.x = direction.x;
+
+				interestPointInView = viewArea.bounds.Contains(interestPoint);
+
+				waitTime = 0;
+			} else
+			{
+				waitTime += Time.deltaTime;
+				if(waitTime > timeToInvestigateInterest)
+				{
+					this.interestPoint = waypoints[waypointIndex];
+					investigateInterestPoint = false;
+				}
+			}
+		} else
+		{
+			//follow waypoints
+			if(distanceX > 0.75)
+			{
+				Vector2 direction = (interestPoint - (Vector2)this.transform.position).normalized;
+				inputDirection.x = direction.x;
+
+				waitTime = 0;
+			} else
+			{
+				waitTime += Time.deltaTime;
+				if(waitTime > timeBetweenWaypoints)
+				{
+					waitTime = 0;
+					waypointIndex = (waypointIndex + 1) % waypoints.Length;
+					this.interestPoint = waypoints[waypointIndex];
+				}
+			}
 		}
 
 		lookAt.UpdateLookAt(interestPoint);
