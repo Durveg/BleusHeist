@@ -32,8 +32,10 @@ public class Player : MonoBehaviour {
 	[SerializeField]
 	private Vector2 wallLeap;
 
-	private float accelerationTimeAirborne = .2f;
+	[SerializeField]
 	private float accelerationTimeGrounded = .1f;
+	[SerializeField]
+	private float accelerationTimeAirborne = .2f;
 
 	private float velocityXsmoothing;
 

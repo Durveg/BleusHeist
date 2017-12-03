@@ -26,5 +26,10 @@ public class PlayerInput : MonoBehaviour {
 		{
 			controllerData.InvokeGrappleButtonDown();
 		}
+
+		if(Input.GetButtonDown("MakeSound"))
+		{
+			controllerData.InvokeMakeSoundButtonDown();
+		}
 	}
 }
