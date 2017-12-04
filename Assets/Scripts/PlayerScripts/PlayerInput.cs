@@ -21,6 +21,7 @@ public class PlayerInput : MonoBehaviour {
 
 		if(Input.GetButtonDown("Jump"))
 		{
+			SoundManager.instance.PlayJumpSound();
 			controllerData.InvokeJumpButtonDown();
 		}
 
@@ -31,6 +32,7 @@ public class PlayerInput : MonoBehaviour {
 
 		if(Input.GetButtonDown("Grapple"))
 		{
+			SoundManager.instance.PlayGrappleSound();
 			controllerData.InvokeGrappleButtonDown();
 		}
 

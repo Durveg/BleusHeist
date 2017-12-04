@@ -24,6 +24,8 @@ public class ColorEnemyVisionCone : MonoBehaviour {
 
 	private Collider2D playerCollider;
 
+	private bool hasPlayedSound = false;
+
 	void Start()
 	{
 		renderer = this.GetComponent<SpriteRenderer>();
@@ -59,18 +61,11 @@ public class ColorEnemyVisionCone : MonoBehaviour {
 		}
 	}
 
-//	void OnTriggerStay2D(Collider2D other)
-//	{
-//		if(other.transform.tag == "Player")
-//		{
-//			this.CheckLOS(other);
-//		}
-//	}
-
 	void OnTriggerExit2D(Collider2D other)
 	{
 		if(other.transform.tag == "Player")
 		{
+			hasPlayedSound = false;
 			this.timeInVision = 0;
 			this.playerCollider = null;
 		}
@@ -120,6 +115,12 @@ public class ColorEnemyVisionCone : MonoBehaviour {
 
 		if(playerIsInLOS == true)
 		{
+			if(this.hasPlayedSound == false)
+			{
+				this.hasPlayedSound = true;
+				SoundManager.instance.PlayEnemyLOS();
+			}
+
 			this.timeInVision += Time.deltaTime;
 
 			//TODO: Set inidcator that time is running out to get away.
@@ -131,6 +132,7 @@ public class ColorEnemyVisionCone : MonoBehaviour {
 			}
 		} else
 		{
+			hasPlayedSound = false;
 			this.timeInVision = 0;
 			this.SetSpriteColor(lookingColor);
 		}

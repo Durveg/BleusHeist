@@ -81,7 +81,7 @@ public class PlayerMovementController : MonoBehaviour {
 		Controller2D.gravity = -1 * (2 * jumpHeight) / (Mathf.Pow(timeToJumpApex, 2));
 		jumpVelocity = Mathf.Abs(Controller2D.gravity) * timeToJumpApex;
 //		wallSlideSpeedMax = gravity / 4;
-		Debug.Log("Gravity: " + Controller2D.gravity + " Jump Velocity: " + jumpVelocity);
+//		Debug.Log("Gravity: " + Controller2D.gravity + " Jump Velocity: " + jumpVelocity);
 	}
 		
 	public void OnJumpInputDown() 

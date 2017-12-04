@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.Analytics;
 
 public class GameWonScript : MonoBehaviour {
 
@@ -17,8 +18,16 @@ public class GameWonScript : MonoBehaviour {
 	[SerializeField]
 	private TextMeshProUGUI timeText;
 
+	[SerializeField]
+	private AnalyticsTracker playerWonEvent;
+
+	[SerializeField]
+	private GameObject quitButton;
+
 	private void GameWon()
 	{
+		playerWonEvent.TriggerEvent();
+
 		canvas.enabled = true;
 
 		float minutes = Mathf.Floor(gameSettings.gameTime / 60); 
@@ -42,6 +51,11 @@ public class GameWonScript : MonoBehaviour {
 	{
 		canvas.enabled = false;
 		gameSettings.GameWonEvent += GameWon;
+
+
+		#if UNITY_WEBGL
+		quitButton.SetActive(false);
+		#endif
 	}
 
 	void OnDisable()

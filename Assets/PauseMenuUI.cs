@@ -10,6 +10,9 @@ public class PauseMenuUI : MonoBehaviour {
 	[SerializeField]
 	private Canvas canvas;
 
+	[SerializeField]
+	private GameObject quitButton;
+
 	void Start()
 	{
 		canvas.enabled = false;
@@ -18,6 +21,10 @@ public class PauseMenuUI : MonoBehaviour {
 	void OnEnable()
 	{
 		controllerData.PauseGameButtonEvent += GamePaused;
+
+		#if UNITY_WEBGL
+		quitButton.SetActive(false);
+		#endif
 	}
 
 	void OnDisable()
@@ -32,11 +39,13 @@ public class PauseMenuUI : MonoBehaviour {
 
 	public void ResetButtonClicked()
 	{
+		Time.timeScale = 1;
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);		
 	}
 
 	public void MainMenuClicked()
 	{
+		Time.timeScale = 1;
 		SceneManager.LoadScene(0);
 	}
 

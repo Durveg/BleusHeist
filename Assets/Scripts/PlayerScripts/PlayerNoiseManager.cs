@@ -95,7 +95,9 @@ public class PlayerNoiseManager : MonoBehaviour {
 			if(this.noiseTimer > this.noiseRate)
 			{
 				this.noiseTimer = 0;
-				StartCoroutine(ExpandNoiseCircle());
+				SoundManager.instance.PlayFootStepSound();
+				MakeSoundInRadius();
+//				StartCoroutine(ExpandNoiseCircle());
 			}
 		}
 	}

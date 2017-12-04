@@ -11,6 +11,9 @@ public class GameOverMenu : MonoBehaviour {
 	[SerializeField]
 	private PlayerStats playerStats;
 
+	[SerializeField]
+	private GameObject quitButton;
+
 
 	[SerializeField]
 	private Canvas canvas;
@@ -46,6 +49,10 @@ public class GameOverMenu : MonoBehaviour {
 	{
 		canvas.enabled = false;
 		gameSettings.GameOverEvent += GameOver;
+
+		#if UNITY_WEBGL
+		quitButton.SetActive(false);
+		#endif
 	}
 
 	void OnDisable()

@@ -32,6 +32,7 @@ public class PlayerStats : ScriptableObject {
 
 	public void PickedUpJewel(Interactable pickedUp)
 	{
+		SoundManager.instance.PlayPickUpJewel();
 		JewelValue += pickedUp.value;
 		jewelsPickedUp.Push(pickedUp);
 	}

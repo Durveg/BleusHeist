@@ -1969,7 +1969,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 450440624}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -738, y: 477.7, z: 0}
+  m_LocalPosition: {x: -738, y: 477, z: 0}
   m_LocalScale: {x: 1.000005, y: 1.000005, z: 1.000005}
   m_Children:
   - {fileID: 1126780275}
@@ -1978,7 +1978,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -738, y: 477.7}
+  m_AnchoredPosition: {x: -738, y: 477}
   m_SizeDelta: {x: 350, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &450440626
@@ -2624,6 +2624,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameSettings: {fileID: 11400000, guid: b0e834223262d4837bf8dd7dbf8779c9, type: 2}
   playerStats: {fileID: 11400000, guid: c9a78226ee2a442d2bb5f9d2aa9e7eff, type: 2}
+  quitButton: {fileID: 217790271}
   canvas: {fileID: 574313644}
   timeText: {fileID: 1603823813}
   jewelsText: {fileID: 280959859}
@@ -3736,7 +3737,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 919306808}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.000061035156, y: 0, z: 0}
   m_LocalScale: {x: 1.000005, y: 1.000005, z: 1.000005}
   m_Children:
   - {fileID: 484744371}
@@ -3764,6 +3765,8 @@ MonoBehaviour:
   playerStats: {fileID: 11400000, guid: c9a78226ee2a442d2bb5f9d2aa9e7eff, type: 2}
   canvas: {fileID: 919306811}
   timeText: {fileID: 285481689}
+  playerWonEvent: {fileID: 1377210822}
+  quitButton: {fileID: 779784930}
 --- !u!223 &919306811
 Canvas:
   m_ObjectHideFlags: 0
@@ -4178,8 +4181,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1094038636}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 450.5, y: 253.5, z: 0}
-  m_LocalScale: {x: 0.46935767, y: 0.46935767, z: 0.46935767}
+  m_LocalPosition: {x: 599, y: 337, z: 0}
+  m_LocalScale: {x: 0.6240162, y: 0.6240162, z: 0.6240162}
   m_Children:
   - {fileID: 1193814998}
   - {fileID: 574313641}
@@ -4525,7 +4528,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1137725877}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -738, y: 398.7, z: 0}
+  m_LocalPosition: {x: -362, y: 477, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1132208662}
@@ -4534,7 +4537,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -738, y: 398.7}
+  m_AnchoredPosition: {x: -362, y: 477}
   m_SizeDelta: {x: 350, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1137725879
@@ -5231,6 +5234,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1377210820}
   - component: {fileID: 1377210821}
+  - component: {fileID: 1377210822}
   m_Layer: 0
   m_Name: ScriptableObjectResetter
   m_TagString: Untagged
@@ -5264,6 +5268,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameSettings: {fileID: 11400000, guid: b0e834223262d4837bf8dd7dbf8779c9, type: 2}
   playerStats: {fileID: 11400000, guid: c9a78226ee2a442d2bb5f9d2aa9e7eff, type: 2}
+--- !u!114 &1377210822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1377210819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 207469858, guid: 220224b43fc464c28bc0e8de8f54a432, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventName: Player Won
+  m_TrackableProperty:
+    m_Fields: []
+  m_Trigger: 0
 --- !u!1 &1412133119
 GameObject:
   m_ObjectHideFlags: 0
@@ -5290,7 +5309,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1412133119}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.000061035156, y: 0, z: 0}
   m_LocalScale: {x: 1.000005, y: 1.000005, z: 1.000005}
   m_Children:
   - {fileID: 2083755458}
@@ -5316,6 +5335,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controllerData: {fileID: 11400000, guid: 834e7625b334a4b8e965192b4984ed4d, type: 2}
   canvas: {fileID: 1412133122}
+  quitButton: {fileID: 498276839}
 --- !u!223 &1412133122
 Canvas:
   m_ObjectHideFlags: 0
@@ -6668,7 +6688,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2018257708}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -727, y: 307, z: 0}
+  m_LocalPosition: {x: 40, y: 477, z: 0}
   m_LocalScale: {x: 1.000005, y: 1.000005, z: 1.000005}
   m_Children:
   - {fileID: 413917053}
@@ -6677,7 +6697,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -727, y: 307}
+  m_AnchoredPosition: {x: 40, y: 477}
   m_SizeDelta: {x: 374.7, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2018257710
@@ -6750,7 +6770,7 @@ MonoBehaviour:
   lookAheadDstX: 2
   lookSmoothTimeX: 0.2
   verticalSmoothTime: 0.2
-  clampCameraX: {x: 17.39, y: 79}
+  clampCameraX: {x: 17.39, y: 55.5}
   clampCameraY: {x: 7.23, y: 100}
 --- !u!81 &2030867779
 AudioListener:
