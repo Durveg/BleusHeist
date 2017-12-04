@@ -83,7 +83,7 @@ public class EnemyMovement : MonoBehaviour {
 			waypoints = new Vector2[2];
 			waypoints[0] = new Vector2(-500, this.transform.position.y);
 			waypoints[1] = new Vector2(500, this.transform.position.y);
-			this.waypointIndex = Random.Range(0, 1);
+			this.waypointIndex = Random.Range(0, 2);
 			interestPoint = waypoints[this.waypointIndex];
 		}
 
@@ -163,6 +163,7 @@ public class EnemyMovement : MonoBehaviour {
 		float timer = 0;
 		while(timer < timeBetweenWaypoints)
 		{
+			lookAt.UpdateLookAt(interestPoint);
 			timer += Time.deltaTime;
 			yield return null;
 		}

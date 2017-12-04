@@ -18,6 +18,6 @@ public class Interactable : MonoBehaviour {
 	public void SetValue(int value)
 	{
 		this.value = value;
-		text.text = this.value.ToString();
+//		text.text = this.value.ToString();
 	}
 }

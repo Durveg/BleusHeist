@@ -8,7 +8,12 @@ public class EasterEggCollider : MonoBehaviour {
 
 	private Vector2 cameraNormalBounds;
 	[SerializeField]
-	private Vector2 cameraEasterEggBounds;
+	private Vector2 cameraEasterEggBounds = new Vector2(12.25f, 100);
+
+	void OnEnable()
+	{
+		cameraFollow = Camera.main.GetComponent<CameraFollow>();
+	}
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
