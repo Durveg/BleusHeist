@@ -5,6 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(Controller2D))]
 public class PlayerMovementController : MonoBehaviour {
 
+	[SerializeField]
+	private SpriteRenderer sprite;
+
 	[Header("Controller Data")]
 	[SerializeField]
 	private PlayerControllerData controllerData;
@@ -130,9 +133,12 @@ public class PlayerMovementController : MonoBehaviour {
 		//Handel moving when on a wall
 		//============================//
 		bool wallSliding = false;
+		sprite.transform.rotation = Quaternion.identity;
 		if((controller.collisions.left || controller.collisions.right) && controller.collisions.below == false)// && velocity.y < 0)
 		{
 			wallSliding = true;
+
+			sprite.transform.rotation = Quaternion.Euler(new Vector3(0, 0, wallDirX * 90));
 
 			velocity.y = controllerData.inputDirection.y * wallMoveSpeed;
 			velocity.y = Mathf.Clamp(velocity.y, -wallMoveSpeed, wallMoveSpeed);
@@ -162,10 +168,15 @@ public class PlayerMovementController : MonoBehaviour {
 			velocity.y = 0;
 		}
 			
-		controllerData.onCeiling = false;
+		controllerData.onCeiling = sprite.flipY = false;
 		if(controller.collisions.above == true)
 		{
 			controllerData.onCeiling = true;
+
+			if(wallSliding == false)
+			{
+				sprite.flipY = true;
+			}
 		}
 
 		if(jumpDown == true && firstJumpFrame == false)

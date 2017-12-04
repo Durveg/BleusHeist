@@ -162,7 +162,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1846156863293030}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.153156, y: 2.0673642, z: 0}
+  m_LocalPosition: {x: 17.8479, y: 3.8467655, z: 0}
   m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_Children:
   - {fileID: 4802243514225812}
@@ -342,6 +342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48645f65868c146b0ace7a5b51a3bba8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprite: {fileID: 212884060365666450}
   controllerData: {fileID: 11400000, guid: 834e7625b334a4b8e965192b4984ed4d, type: 2}
   jumpHeight: 4
   timeToJumpApex: 0.4
