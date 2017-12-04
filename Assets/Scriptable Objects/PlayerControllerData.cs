@@ -13,6 +13,9 @@ public class PlayerControllerData : ScriptableObject {
 
 	public event InputButtonEvent MakeSoundButtonDown;
 
+	public event InputButtonEvent InteractButtonEvent;
+	public event InputButtonEvent DropItemButtonEvent;
+
 	public delegate void MoveTowardsEvent(Vector2 targetPosition);
 	public event MoveTowardsEvent MovePlayerGrapple;
 
@@ -50,6 +53,22 @@ public class PlayerControllerData : ScriptableObject {
 		if(MakeSoundButtonDown != null)
 		{
 			MakeSoundButtonDown.Invoke();
+		}
+	}
+
+	public void InvokeInteractButtonEvent()
+	{
+		if(InteractButtonEvent != null)
+		{
+			InteractButtonEvent.Invoke();
+		}
+	}
+
+	public void InvokeDropItemButtonEvent()
+	{
+		if(DropItemButtonEvent != null)
+		{
+			DropItemButtonEvent.Invoke();
 		}
 	}
 
