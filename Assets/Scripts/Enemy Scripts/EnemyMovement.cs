@@ -31,9 +31,15 @@ public class EnemyMovement : MonoBehaviour {
 	[SerializeField]
 	private float timeBetweenWaypoints;
 	private float waitTime = 0;
+
 	private float investigateTime = 0;
 	[SerializeField]
 	private float maxTimeInvestigatePathing = 15;
+
+	private float pathTime = 0;
+	[SerializeField]
+	private float maxPathTime = 15;
+	private float generatedPathTime = 5;
 
 	[SerializeField]
 	private Transform pathHolder;
@@ -42,9 +48,12 @@ public class EnemyMovement : MonoBehaviour {
 
 	void OnDrawGizmos()
 	{
-		foreach(Transform waypoint in pathHolder)
+		if(pathHolder != null)
 		{
-			Gizmos.DrawSphere(waypoint.position, .3f);
+			foreach(Transform waypoint in pathHolder)
+			{
+				Gizmos.DrawSphere(waypoint.position, .3f);
+			}
 		}
 	}
 
@@ -58,14 +67,27 @@ public class EnemyMovement : MonoBehaviour {
 	void Start () {
 
 		controller = GetComponent<Controller2D>();
-		waypoints = new Vector2[pathHolder.childCount];
-		for(int i = 0; i < waypoints.Length; i++)
+
+		if(pathHolder != null)
 		{
-			waypoints[i] = pathHolder.GetChild(i).position;
+			waypoints = new Vector2[pathHolder.childCount];
+			for(int i = 0; i < waypoints.Length; i++)
+			{
+				waypoints[i] = pathHolder.GetChild(i).position;
+			}
+
+			this.transform.position = waypoints[0];
+			interestPoint = waypoints[0];
+		} else
+		{
+			waypoints = new Vector2[2];
+			waypoints[0] = new Vector2(-500, this.transform.position.y);
+			waypoints[1] = new Vector2(500, this.transform.position.y);
+			this.waypointIndex = Random.Range(0, 1);
+			interestPoint = waypoints[this.waypointIndex];
 		}
 
-		this.transform.position = waypoints[0];
-		interestPoint = waypoints[0];
+		StartCoroutine(MoveInDirection());
 	}
 
 	private void UpdateWaypoint()
@@ -73,75 +95,85 @@ public class EnemyMovement : MonoBehaviour {
 
 	}
 
-	// Update is called once per frame
-	void Update () {
-
-		inputDirection = Vector2.zero;
-		float distanceX = Mathf.Abs(interestPoint.x - transform.position.x);
-
-		if(investigateInterestPoint == true)
+	private IEnumerator MoveInDirection()
+	{
+		bool pathing = true;
+		while(pathing)
 		{
-			//Track noise;
-			if(interestPointInView == false && (distanceX > 1.25f))
+			inputDirection = Vector2.zero;
+			float distanceX = Mathf.Abs(interestPoint.x - transform.position.x);
+
+			if(investigateInterestPoint == true)
 			{
-				Vector2 direction = (interestPoint - (Vector2)this.transform.position).normalized;
-				inputDirection.x = direction.x;
-
-				interestPointInView = viewArea.bounds.Contains(interestPoint);
-
-				//Set max time to investigate a point just incase guard never reaches a close enogh point to start look timer.
-				investigateTime += Time.deltaTime;
-				if(investigateTime > maxTimeInvestigatePathing)
+				//Track noise;
+				if(interestPointInView == false && (distanceX > 1.25f))
 				{
-					this.interestPoint = waypoints[waypointIndex];
-					investigateInterestPoint = false;
-				}
+					Vector2 direction = (interestPoint - (Vector2)this.transform.position).normalized;
+					inputDirection.x = direction.x;
 
-				waitTime = 0;
-			} else
-			{
-				waitTime += Time.deltaTime;
-				if(waitTime > timeToInvestigateInterest)
-				{
-					this.interestPoint = waypoints[waypointIndex];
-					investigateInterestPoint = false;
-				}
-			}
-		} else
-		{
-			//follow waypoints
-			if(distanceX > 0.75)
-			{
-				Vector2 direction = (interestPoint - (Vector2)this.transform.position).normalized;
-				inputDirection.x = direction.x;
+					interestPointInView = viewArea.bounds.Contains(interestPoint);
 
-				waitTime = 0;
-			} else
-			{
-				waitTime += Time.deltaTime;
-				if(waitTime > timeBetweenWaypoints)
-				{
+					//Set max time to investigate a point just incase guard never reaches a close enogh point to start look timer.
+					investigateTime += Time.deltaTime;
+					if(investigateTime > maxTimeInvestigatePathing)
+					{
+						this.interestPoint = waypoints[waypointIndex];
+						investigateInterestPoint = false;
+					}
+
 					waitTime = 0;
-					waypointIndex = (waypointIndex + 1) % waypoints.Length;
-					this.interestPoint = waypoints[waypointIndex];
+				} else
+				{
+					waitTime += Time.deltaTime;
+					if(waitTime > timeToInvestigateInterest)
+					{
+						this.interestPoint = waypoints[waypointIndex];
+						investigateInterestPoint = false;
+					}
+				}
+			} else
+			{
+				Vector2 direction = (interestPoint - (Vector2)this.transform.position).normalized;
+				inputDirection.x = direction.x;
+			}
+
+			lookAt.UpdateLookAt(interestPoint);
+
+			float targetVelocityX = inputDirection.x * moveSpeed;
+			velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXsmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
+			velocity.y += Controller2D.gravity * Time.deltaTime;
+
+			controller.Move(velocity * Time.deltaTime);
+
+			if((this.controller.collisions.left == true && Mathf.Sign(targetVelocityX) == -1) || (this.controller.collisions.right == true && Mathf.Sign(targetVelocityX) == 1))
+			{
+				if(this.controller.horizontalCollision != null && this.controller.horizontalCollision.layer == 14)
+				{
+					pathing = false;
 				}
 			}
+			yield return null;
 		}
 
-		lookAt.UpdateLookAt(interestPoint);
+		StartCoroutine(WaitAtPoint());
+	}
 
-		float targetVelocityX = inputDirection.x * moveSpeed;
-		velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXsmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
-		velocity.y += Controller2D.gravity * Time.deltaTime;
+	private IEnumerator WaitAtPoint()
+	{
+		float timer = 0;
+		while(timer < timeBetweenWaypoints)
+		{
+			timer += Time.deltaTime;
+			yield return null;
+		}
 
-		controller.Move(velocity * Time.deltaTime);
+		waypointIndex = (waypointIndex + 1) % waypoints.Length;
+		this.interestPoint = waypoints[waypointIndex];
 
-//		if(Mathf.Sign(this.transform.localScale.x) != Mathf.Sign(this.controller.collisions.faceDir))
-//		{
-//			Vector3 scale = this.transform.localScale;
-//			scale.x *= -1;
-//			this.transform.localScale = scale;
-//		}
+		StartCoroutine(MoveInDirection());
+	}
 
+	// Update is called once per frame
+	void Update () {
 	}
 }

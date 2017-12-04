@@ -187,7 +187,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1976109906590910}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.4820282, y: -4.354998, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_Children:
   - {fileID: 4206347396505974}
@@ -411,7 +411,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collisionMask:
     serializedVersion: 2
-    m_Bits: 33024
+    m_Bits: 49408
   horizontalRayCount: 4
   verticalRayCount: 4
   collider: {fileID: 0}
@@ -432,11 +432,11 @@ MonoBehaviour:
   controller: {fileID: 0}
   viewArea: {fileID: 60760882667936582}
   lookAt: {fileID: 114446212770197394}
-  interestPoint: {x: 0, y: 0}
+  interestPoint: {x: 1.95, y: 0}
   timeToInvestigateInterest: 2
   timeBetweenWaypoints: 1.5
   maxTimeInvestigatePathing: 15
-  pathHolder: {fileID: 4305707452413288}
+  pathHolder: {fileID: 0}
 --- !u!114 &114826415891058340
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -20,6 +20,7 @@ public class Controller2D : MonoBehaviour {
 	public new BoxCollider2D collider;
 	private RaycastOrigins raycastOrigins;
 	public CollisionInfo collisions;
+	public GameObject horizontalCollision;
 
 	void Awake() 
 	{
@@ -56,6 +57,8 @@ public class Controller2D : MonoBehaviour {
 	private void HorizontalCollisions(ref Vector3 velocity)
 	{
 		float directionX = collisions.faceDir;
+		horizontalCollision = null;
+
 		float rayLength = Mathf.Abs(velocity.x) + skinWidth;
 
 		if(Mathf.Abs(velocity.x) < skinWidth)
@@ -75,6 +78,7 @@ public class Controller2D : MonoBehaviour {
 			{
 				velocity.x = (hit.distance - skinWidth) * directionX;
 				rayLength = hit.distance;
+				horizontalCollision = hit.collider.gameObject;
 
 				collisions.left = directionX == -1;
 				collisions.right = directionX == 1;
