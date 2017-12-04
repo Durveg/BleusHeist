@@ -383,6 +383,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 98560
   enemyGameObject: {fileID: 1976109906590910}
+  maxTimeBeforeCaught: 3
 --- !u!114 &114446212770197394
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -395,9 +396,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxLookAngle: 67
-  lookSpeed: 60
+  lookSpeed: 90
   lookAtArea: {fileID: 1956535172647990}
-  thisEnemy: {fileID: 114820559126305986}
 --- !u!114 &114784491477266552
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -435,6 +435,7 @@ MonoBehaviour:
   interestPoint: {x: 0, y: 0}
   timeToInvestigateInterest: 2
   timeBetweenWaypoints: 1.5
+  maxTimeInvestigatePathing: 15
   pathHolder: {fileID: 4305707452413288}
 --- !u!114 &114826415891058340
 MonoBehaviour:
@@ -447,7 +448,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 716e01b9bcde04ee39b4852d9636d768, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lookAtPointManager: {fileID: 114446212770197394}
   movementManager: {fileID: 114820559126305986}
 --- !u!212 &212057535554200164
 SpriteRenderer:

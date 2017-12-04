@@ -19,9 +19,18 @@ public class PlayerNoiseManager : MonoBehaviour {
 	private float constantScaler = 1;
 	private int jewels = 0;
 
+	[SerializeField]
+	private float noiseRate = 0.25f;
+	private float noiseTimer = 0;
+
+	[SerializeField]
+	private GameObject expandCircle;
+
 	void OnEnable()
 	{
 		controllerData.MakeSoundButtonDown += MakeSoundInRadius;
+		this.expandCircle.transform.localScale = Vector3.zero;
+		UpdateSoundArea();
 	}
 
 	private void MakeSoundInRadius()
@@ -71,5 +80,37 @@ public class PlayerNoiseManager : MonoBehaviour {
 			this.jewels = playerStats.jewelsCarrying;
 			this.UpdateSoundArea();
 		}
+
+
+		if(controllerData.inputDirection != Vector2.zero)
+		{
+			this.noiseTimer += Time.deltaTime;
+			if(this.noiseTimer > this.noiseRate)
+			{
+				this.noiseTimer = 0;
+				StartCoroutine(ExpandNoiseCircle());
+			}
+		}
+	}
+
+	private IEnumerator ExpandNoiseCircle()
+	{
+		float expandTime = 0.1f;
+		float timer = 0;
+		float scale = 0;
+		float endScale = 1;
+		while(timer < expandTime)
+		{
+			
+
+			scale = Mathf.MoveTowards(scale, endScale, (1 / expandTime) * Time.deltaTime);
+			this.expandCircle.transform.localScale = new Vector3(scale, scale, 1);
+
+			timer += Time.deltaTime;
+			yield return null;
+		}
+
+		this.expandCircle.transform.localScale = Vector3.zero;
+		MakeSoundInRadius();
 	}
 }

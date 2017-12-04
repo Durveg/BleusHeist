@@ -22,6 +22,11 @@ public class CameraFollow : MonoBehaviour {
 	[SerializeField]
 	private float verticalSmoothTime;
 
+	[SerializeField]
+	private Vector2 clampCameraX;
+	[SerializeField]
+	private Vector2 clampCameraY;
+
 	private float currentLookAheadX;
 	private float targetLookAheadX;
 	private float lookAheadDirX;
@@ -61,9 +66,7 @@ public class CameraFollow : MonoBehaviour {
 			{
 				shiftX = targetBounds.max.x - right;
 			}
-
-
-
+				
 			float shiftY = 0;
 			if(targetBounds.min.y < bottom)
 			{
@@ -83,13 +86,31 @@ public class CameraFollow : MonoBehaviour {
 		}
 	}
 
+	public Vector2 SetEasterEggBounds(Vector2 newBounds)
+	{
+		Vector2 returnBounds = this.clampCameraX;
+		this.clampCameraX = newBounds;
+		return returnBounds;
+	}
+
+	public void SetNormalBounds(Vector2 newBounds)
+	{
+		this.clampCameraX = newBounds;
+	}
+
 	void Start () {
 
-		focusArea = new FocusArea(target.collider.bounds, focusAreaSize);
 	}
 
 	void LateUpdate()
 	{
+		if(target == null)
+		{
+			target = GameObject.FindWithTag("Player").GetComponent<Controller2D>();
+			focusArea = new FocusArea(target.collider.bounds, focusAreaSize);
+			return;
+		}
+
 		focusArea.Update(target.collider.bounds);
 
 		Vector2 focusPosition = focusArea.center + Vector2.up * verticalOffset;
@@ -114,7 +135,12 @@ public class CameraFollow : MonoBehaviour {
 		currentLookAheadX = Mathf.SmoothDamp(currentLookAheadX, targetLookAheadX, ref smoothLookVelocityX, lookSmoothTimeX);
 
 		focusPosition += Vector2.right * currentLookAheadX;
-		transform.position = (Vector3)focusPosition + Vector3.forward * -10;
+		Vector3 newPosition = (Vector3)focusPosition + Vector3.forward * -10;
+
+		newPosition.x = Mathf.Clamp(newPosition.x, this.clampCameraX.x, this.clampCameraX.y);
+		newPosition.y = Mathf.Clamp(newPosition.y, this.clampCameraY.x, this.clampCameraY.y);
+
+		transform.position = newPosition;
 	}
 
 	void OnDrawGizmos()

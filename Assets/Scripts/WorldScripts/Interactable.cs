@@ -12,7 +12,7 @@ public class Interactable : MonoBehaviour {
 
 	void OnEnable()
 	{
-		SetValue(1);
+		SetValue(value);
 	}
 
 	public void SetValue(int value)
