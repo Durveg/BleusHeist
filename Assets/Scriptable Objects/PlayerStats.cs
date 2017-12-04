@@ -6,6 +6,9 @@ using UnityEngine;
 public class PlayerStats : ScriptableObject {
 
 	[SerializeField]
+	private GameSettings gameSettings;
+
+	[SerializeField]
 	private const int jewelsCarryingDefaultValue = 0;
 
 	public Stack<Interactable> jewelsPickedUp;
@@ -17,7 +20,18 @@ public class PlayerStats : ScriptableObject {
 	}
 
 	public int JewelValue;
-	public int SavedGems;
+	public int returnedJewels;
+	public int totalJewels;
+
+	public void ReturnedJewel()
+	{
+		returnedJewels++;
+	}
+
+	public void RegisterJewel()
+	{
+		totalJewels++;
+	}
 
 	public void PickedUpJewel(Interactable pickedUp)
 	{
@@ -37,9 +51,24 @@ public class PlayerStats : ScriptableObject {
 		return jewelDropped;
 	}
 
+	public void TurnInJewels()
+	{
+		int turnedIn = this.jewelsPickedUp.Count;
+		this.jewelsPickedUp.Clear();
+		this.JewelValue = 0;
+		this.returnedJewels += turnedIn;
+
+		if(returnedJewels >= totalJewels)
+		{
+			//WIN!
+			gameSettings.InvokeGameWonEvent();
+		}
+	}
+
 	public void ResetValues()
 	{
 		JewelValue = 0;
-		SavedGems = 0;
+		returnedJewels = 0;
+		totalJewels = 0;
 	}
 }

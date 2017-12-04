@@ -14,6 +14,8 @@ public class JewelCounter : MonoBehaviour {
 	private TextMeshProUGUI jewelCounter;
 	[SerializeField]
 	private TextMeshProUGUI timer;
+	[SerializeField]
+	private TextMeshProUGUI turnedIn;
 
 	void Update () {
 
@@ -35,5 +37,6 @@ public class JewelCounter : MonoBehaviour {
 
 		//TODO: make this only change when the value changes instead of every frame.
 		jewelCounter.text = playerStats.JewelValue.ToString();
+		turnedIn.text = playerStats.returnedJewels.ToString() + " / " + playerStats.totalJewels.ToString();
 	}
 }

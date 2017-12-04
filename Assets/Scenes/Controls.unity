@@ -947,8 +947,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: "W,A,S,D or Arrow keys to move\nF to pick up \nG to drop \nSpace to jump\nQ
-    to grapple onto the ceiling"
+  m_text: "[W],[A],[S],[D] or Arrow keys to move\n[F] to pick up \n[G] to drop \n[Space]
+    to jump\n[Q] to grapple onto the ceiling"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8a81de9f6e7004ae5bb6ab89c0832fff, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8a81de9f6e7004ae5bb6ab89c0832fff, type: 2}
@@ -1015,7 +1015,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 2105078492}
-    characterCount: 98
+    characterCount: 114
     spriteCount: 0
     spaceCount: 23
     wordCount: 25

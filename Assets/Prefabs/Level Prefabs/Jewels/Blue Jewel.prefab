@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 3
-  text: {fileID: 0}
+  playerStats: {fileID: 11400000, guid: c9a78226ee2a442d2bb5f9d2aa9e7eff, type: 2}
 --- !u!212 &212807752924147110
 SpriteRenderer:
   m_ObjectHideFlags: 1

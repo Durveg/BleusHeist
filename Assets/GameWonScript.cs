@@ -4,23 +4,20 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-public class GameOverMenu : MonoBehaviour {
+public class GameWonScript : MonoBehaviour {
 
 	[SerializeField]
 	private GameSettings gameSettings;
 	[SerializeField]
 	private PlayerStats playerStats;
 
-
 	[SerializeField]
 	private Canvas canvas;
 
 	[SerializeField]
 	private TextMeshProUGUI timeText;
-	[SerializeField]
-	private TextMeshProUGUI jewelsText;
 
-	private void GameOver()
+	private void GameWon()
 	{
 		canvas.enabled = true;
 
@@ -39,18 +36,17 @@ public class GameOverMenu : MonoBehaviour {
 		} 
 
 		timeText.text = sMinutes + ":" + sSeconds;
-		jewelsText.text = playerStats.returnedJewels.ToString();
 	}
 
 	void OnEnable()
 	{
 		canvas.enabled = false;
-		gameSettings.GameOverEvent += GameOver;
+		gameSettings.GameWonEvent += GameWon;
 	}
 
 	void OnDisable()
 	{
-		gameSettings.GameOverEvent -= GameOver;
+		gameSettings.GameWonEvent -= GameWon;
 	}
 
 	public void ResetButtonClicked()

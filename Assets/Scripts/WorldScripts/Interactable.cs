@@ -8,10 +8,11 @@ public class Interactable : MonoBehaviour {
 	public int value = 1;
 
 	[SerializeField]
-	private TextMeshPro text;
+	private PlayerStats playerStats;
 
 	void OnEnable()
 	{
+		playerStats.RegisterJewel();
 		SetValue(value);
 	}
 

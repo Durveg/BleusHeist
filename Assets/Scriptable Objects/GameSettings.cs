@@ -13,6 +13,16 @@ public class GameSettings : ScriptableObject {
 
 	public delegate void GlobalEventTriggered();
 	public event GlobalEventTriggered GameOverEvent;
+	public event GlobalEventTriggered GameWonEvent;
+
+	public void InvokeGameWonEvent()
+	{
+		gameIsOver = true;
+		if(GameWonEvent != null)
+		{
+			GameWonEvent.Invoke();
+		}
+	}
 
 	public void InvokeGameOverEvent()
 	{
