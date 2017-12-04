@@ -164,6 +164,8 @@ public class PlayerMovementController : MonoBehaviour {
 			}
 		}
 
+		controllerData.isSliding = wallSliding;
+
 		//adjust gravity when hitting head or landing on ground.
 		//=====================================================//
 		if((controller.collisions.above || controller.collisions.below) && wallSliding == false)
@@ -212,11 +214,12 @@ public class PlayerMovementController : MonoBehaviour {
 				velocity.y = -jumpVelocity;
 			}
 		}
-			
+
 		if(wallSliding == false && controllerData.onCeiling == false)
 		{
 			velocity.y += Controller2D.gravity * Time.deltaTime;
 		}
+
 
 		controllerData.playerVelocity = this.velocity;
 

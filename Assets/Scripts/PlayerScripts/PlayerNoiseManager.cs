@@ -89,7 +89,11 @@ public class PlayerNoiseManager : MonoBehaviour {
 		}
 
 
-		if(controllerData.inputDirection != Vector2.zero)
+		//if the player is moving horizontally or if player is moving up while holding the up button
+		if((controllerData.playerVelocity.x > 0.05f && controllerData.inputDirection.x > 0) ||
+		   (controllerData.playerVelocity.x < -0.05f && controllerData.inputDirection.x < 0) ||
+		   (controllerData.playerVelocity.y > 0.05f && controllerData.inputDirection.y > 0) ||
+			(controllerData.playerVelocity.y < -0.05f && controllerData.inputDirection.y < 0 && controllerData.isSliding == true))
 		{
 			this.noiseTimer += Time.deltaTime;
 			if(this.noiseTimer > this.noiseRate)

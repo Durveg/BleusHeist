@@ -22,6 +22,7 @@ public class PlayerControllerData : ScriptableObject {
 	public event MoveTowardsEvent MovePlayerGrapple;
 
 	public bool onCeiling;
+	public bool isSliding;
 
 	public Vector2 inputDirection;
 	public Vector2 playerVelocity;
