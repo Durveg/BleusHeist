@@ -75,9 +75,9 @@ public class PlayerNoiseManager : MonoBehaviour {
 
 	void Update()
 	{
-		if(this.jewels != playerStats.jewelsCarrying)
+		if(this.jewels != playerStats.JewelValue)
 		{
-			this.jewels = playerStats.jewelsCarrying;
+			this.jewels = playerStats.JewelValue;
 			this.UpdateSoundArea();
 		}
 

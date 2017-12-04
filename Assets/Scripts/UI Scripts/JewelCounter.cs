@@ -13,6 +13,6 @@ public class JewelCounter : MonoBehaviour {
 	void Update () {
 
 		//TODO: make this only change when the value changes instead of every frame.
-		jewelCounter.text = playerStats.jewelsCarrying.ToString();
+		jewelCounter.text = playerStats.JewelValue.ToString();
 	}
 }

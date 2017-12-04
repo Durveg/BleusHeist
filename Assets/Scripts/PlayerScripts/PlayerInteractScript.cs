@@ -16,7 +16,6 @@ public class PlayerInteractScript : MonoBehaviour {
 	void Start () {
 
 		interactablesInRange = new Dictionary<Collider2D, Interactable>();
-		stats.ResetStats();
 	}
 
 	void OnEnable()
@@ -34,12 +33,17 @@ public class PlayerInteractScript : MonoBehaviour {
 		if(interactablesInRange.Count > 0)
 		{
 			Interactable[] interactables = new Interactable[interactablesInRange.Count];
+			Collider2D[] colliders = new Collider2D[interactablesInRange.Count];
 			interactablesInRange.Values.CopyTo(interactables, 0);
+			interactablesInRange.Keys.CopyTo(colliders, 0);
 
-			foreach(Interactable interactable in interactables)
+			for(int i = 0; i < interactables.Length; i++)
 			{
-				stats.jewelsCarrying += interactable.value;
-				GameObject.Destroy(interactable.gameObject);
+				
+				stats.PickedUpJewel(interactables[i]);
+				interactables[i].gameObject.SetActive(false);
+
+				interactablesInRange.Remove(colliders[i]);
 			}
 		}
 	}
