@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4929403780027472}
   - component: {fileID: 212992367572994440}
   m_Layer: 0
-  m_Name: VentGrateL
+  m_Name: VentGrateD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,8 +73,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1c1ff2e97189a4384846d6929843c996, type: 3}
+  m_SortingOrder: -1
+  m_Sprite: {fileID: 21300000, guid: 3bfab8c479cf645fc92ee218b7f6179d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
