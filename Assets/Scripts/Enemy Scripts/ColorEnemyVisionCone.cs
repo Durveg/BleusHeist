@@ -81,6 +81,9 @@ public class ColorEnemyVisionCone : MonoBehaviour {
 		if(this.playerCollider != null)
 		{
 			CheckLOS(this.playerCollider);
+		} else
+		{
+			this.SetSpriteColor(lookingColor);
 		}
 	}
 

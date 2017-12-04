@@ -28,7 +28,7 @@ public class PlayerStats : ScriptableObject {
 	public Interactable DroppedJewel()
 	{
 		Interactable jewelDropped = null;
-		if(jewelsPickedUp.Peek() != null)
+		if(jewelsPickedUp.Count > 0)
 		{
 			jewelDropped = jewelsPickedUp.Pop();
 			JewelValue -= jewelDropped.value;
