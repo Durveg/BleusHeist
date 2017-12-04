@@ -12,6 +12,8 @@ public class PlayerNoiseManager : MonoBehaviour {
 	private PlayerControllerData controllerData;
 	[SerializeField]
 	private PlayerStats playerStats;
+	[SerializeField]
+	private GameSettings gameSettings;
 
 	[SerializeField]
 	private float baseScale = 0.5f;
@@ -75,6 +77,11 @@ public class PlayerNoiseManager : MonoBehaviour {
 
 	void Update()
 	{
+		if(gameSettings.gameIsOver == true)
+		{
+			return;
+		}
+
 		if(this.jewels != playerStats.JewelValue)
 		{
 			this.jewels = playerStats.JewelValue;

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameSettings: {fileID: 11400000, guid: b0e834223262d4837bf8dd7dbf8779c9, type: 2}
   JewelValue: 0
-  returnedJewels: 10
+  returnedJewels: 9
   totalJewels: 9

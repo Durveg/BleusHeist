@@ -8,9 +8,6 @@ public class PlayerStats : ScriptableObject {
 	[SerializeField]
 	private GameSettings gameSettings;
 
-	[SerializeField]
-	private const int jewelsCarryingDefaultValue = 0;
-
 	public Stack<Interactable> jewelsPickedUp;
 
 	PlayerStats()

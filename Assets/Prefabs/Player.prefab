@@ -368,6 +368,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controllerData: {fileID: 11400000, guid: 834e7625b334a4b8e965192b4984ed4d, type: 2}
   playerStats: {fileID: 11400000, guid: c9a78226ee2a442d2bb5f9d2aa9e7eff, type: 2}
+  gameSettings: {fileID: 11400000, guid: b0e834223262d4837bf8dd7dbf8779c9, type: 2}
   baseScale: 0.5
   constantScaler: 1
   noiseRate: 0.25
