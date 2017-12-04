@@ -13,6 +13,8 @@ public class ColorEnemyVisionCone : MonoBehaviour {
 	private LayerMask checkHitLayers;
 	[SerializeField]
 	private GameObject enemyGameObject;
+	[SerializeField]
+	private GameSettings gameSettings;
 
 	private new SpriteRenderer renderer;
 
@@ -20,10 +22,28 @@ public class ColorEnemyVisionCone : MonoBehaviour {
 	[SerializeField]
 	private float maxTimeBeforeCaught = 3;
 
+	private Collider2D playerCollider;
+
 	void Start()
 	{
 		renderer = this.GetComponent<SpriteRenderer>();
 		this.SetSpriteColor(lookingColor);
+
+		switch(gameSettings.difficulty)
+		{
+		case(GameDifficulty.Easy):
+			maxTimeBeforeCaught = gameSettings.caughtTimeSettings[0];
+			break;
+		case(GameDifficulty.Medium):
+			maxTimeBeforeCaught = gameSettings.caughtTimeSettings[1];
+			break;
+		case(GameDifficulty.Hard):
+			maxTimeBeforeCaught = gameSettings.caughtTimeSettings[2];
+			break;
+		case(GameDifficulty.Brutal):
+			maxTimeBeforeCaught = gameSettings.caughtTimeSettings[2];
+			break;
+		}
 	}
 
 	void OnEnable()
@@ -35,29 +55,42 @@ public class ColorEnemyVisionCone : MonoBehaviour {
 	{
 		if(other.transform.tag == "Player")
 		{
-			this.CheckLOS(other);
+			this.playerCollider = other;
 		}
 	}
 
-	void OnTriggerStay2D(Collider2D other)
-	{
-		if(other.transform.tag == "Player")
-		{
-			this.CheckLOS(other);
-		}
-	}
+//	void OnTriggerStay2D(Collider2D other)
+//	{
+//		if(other.transform.tag == "Player")
+//		{
+//			this.CheckLOS(other);
+//		}
+//	}
 
 	void OnTriggerExit2D(Collider2D other)
 	{
 		if(other.transform.tag == "Player")
 		{
 			this.timeInVision = 0;
-			this.SetSpriteColor(lookingColor);
+			this.playerCollider = null;
+		}
+	}
+
+	void Update()
+	{
+		if(this.playerCollider != null)
+		{
+			CheckLOS(this.playerCollider);
 		}
 	}
 
 	private void CheckLOS(Collider2D other)
 	{
+		if(gameSettings.gameIsOver == true)
+		{
+			return;
+		}
+
 		bool playerIsInLOS = false;
 
 		Vector2 direction = other.transform.position - this.transform.position;
@@ -81,7 +114,6 @@ public class ColorEnemyVisionCone : MonoBehaviour {
 			}
 			
 		}
-		
 
 		if(playerIsInLOS == true)
 		{
@@ -92,8 +124,7 @@ public class ColorEnemyVisionCone : MonoBehaviour {
 
 			if(this.timeInVision > maxTimeBeforeCaught)
 			{
-				//TODO: Signal end of game.
-				Debug.Log("GameOver");
+				gameSettings.InvokeGameOverEvent();
 			}
 		} else
 		{

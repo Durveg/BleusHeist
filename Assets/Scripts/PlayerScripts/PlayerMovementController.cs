@@ -6,6 +6,9 @@ using UnityEngine;
 public class PlayerMovementController : MonoBehaviour {
 
 	[SerializeField]
+	private GameSettings gameSettings;
+
+	[SerializeField]
 	private SpriteRenderer sprite;
 
 	[Header("Controller Data")]
@@ -54,7 +57,7 @@ public class PlayerMovementController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+
 		controller = GetComponent<Controller2D>();
 		CalculateGravityAndJumpVel();
 	}
@@ -216,6 +219,10 @@ public class PlayerMovementController : MonoBehaviour {
 		}
 
 		controllerData.playerVelocity = this.velocity;
-		controller.Move(velocity * Time.deltaTime);
+
+		if(gameSettings.gameIsOver == false)
+		{
+			controller.Move(velocity * Time.deltaTime);
+		}
 	}
 }

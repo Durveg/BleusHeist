@@ -342,6 +342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48645f65868c146b0ace7a5b51a3bba8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameSettings: {fileID: 11400000, guid: b0e834223262d4837bf8dd7dbf8779c9, type: 2}
   sprite: {fileID: 212884060365666450}
   controllerData: {fileID: 11400000, guid: 834e7625b334a4b8e965192b4984ed4d, type: 2}
   jumpHeight: 4
@@ -383,6 +384,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controllerData: {fileID: 11400000, guid: 834e7625b334a4b8e965192b4984ed4d, type: 2}
+  gameSettings: {fileID: 11400000, guid: b0e834223262d4837bf8dd7dbf8779c9, type: 2}
 --- !u!114 &114908404892066814
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -396,8 +398,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controllerData: {fileID: 11400000, guid: 834e7625b334a4b8e965192b4984ed4d, type: 2}
   stats: {fileID: 11400000, guid: c9a78226ee2a442d2bb5f9d2aa9e7eff, type: 2}
-  jewelPrefab: {fileID: 1890268953160508, guid: 72ce5d5e22f794527aaf0fea95d0ac3d,
-    type: 2}
 --- !u!120 &120939749848945612
 LineRenderer:
   m_ObjectHideFlags: 1

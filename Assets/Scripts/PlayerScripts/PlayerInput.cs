@@ -7,8 +7,15 @@ public class PlayerInput : MonoBehaviour {
 
 	[SerializeField]
 	private PlayerControllerData controllerData;
-	
+	[SerializeField]
+	private GameSettings gameSettings;
+
 	void Update () {
+
+		if(gameSettings.gameIsOver == true)
+		{
+			return;
+		}
 
 		controllerData.inputDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
@@ -40,6 +47,12 @@ public class PlayerInput : MonoBehaviour {
 		if(Input.GetButtonDown("DropItem"))
 		{
 			controllerData.InvokeDropItemButtonEvent();
+		}
+
+		if(Input.GetButtonDown("Pause"))
+		{
+			//TODO: Unpuase on escape
+			controllerData.InvokePauseGameButtonDown();
 		}
 	}
 }

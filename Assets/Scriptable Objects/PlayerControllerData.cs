@@ -16,6 +16,8 @@ public class PlayerControllerData : ScriptableObject {
 	public event InputButtonEvent InteractButtonEvent;
 	public event InputButtonEvent DropItemButtonEvent;
 
+	public event InputButtonEvent PauseGameButtonEvent;
+
 	public delegate void MoveTowardsEvent(Vector2 targetPosition);
 	public event MoveTowardsEvent MovePlayerGrapple;
 
@@ -23,6 +25,20 @@ public class PlayerControllerData : ScriptableObject {
 
 	public Vector2 inputDirection;
 	public Vector2 playerVelocity;
+
+	public void UnPauseGame()
+	{
+		Time.timeScale = 1;
+	}
+
+	public void InvokePauseGameButtonDown()
+	{
+		Time.timeScale = 0;
+		if(PauseGameButtonEvent != null)
+		{
+			PauseGameButtonEvent.Invoke();
+		}
+	}
 
 	public void InvokeJumpButtonDown()
 	{

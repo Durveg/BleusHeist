@@ -17,6 +17,7 @@ public class PlayerStats : ScriptableObject {
 	}
 
 	public int JewelValue;
+	public int SavedGems;
 
 	public void PickedUpJewel(Interactable pickedUp)
 	{
@@ -34,5 +35,11 @@ public class PlayerStats : ScriptableObject {
 		}
 
 		return jewelDropped;
+	}
+
+	public void ResetValues()
+	{
+		JewelValue = 0;
+		SavedGems = 0;
 	}
 }

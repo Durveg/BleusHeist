@@ -36,15 +36,18 @@ public class EnemyMovement : MonoBehaviour {
 	[SerializeField]
 	private float maxTimeInvestigatePathing = 15;
 
-	private float pathTime = 0;
-	[SerializeField]
-	private float maxPathTime = 15;
-	private float generatedPathTime = 5;
+//	private float pathTime = 0;
+//	[SerializeField]
+//	private float maxPathTime = 15;
+//	private float generatedPathTime = 5;
 
 	[SerializeField]
 	private Transform pathHolder;
 	private Vector2[] waypoints;
 	private int waypointIndex;
+
+	[SerializeField]
+	private GameSettings gameSettings;
 
 	void OnDrawGizmos()
 	{
@@ -89,92 +92,90 @@ public class EnemyMovement : MonoBehaviour {
 
 		StartCoroutine(MoveInDirection());
 	}
-
-	private void UpdateWaypoint()
-	{
-
-	}
-
+		
 	private IEnumerator MoveInDirection()
 	{
-		bool pathing = true;
-		while(pathing)
+		if(gameSettings.gameIsOver == false)
 		{
-			inputDirection = Vector2.zero;
-			float distanceX = Mathf.Abs(interestPoint.x - transform.position.x);
 
-			if(investigateInterestPoint == true)
+			bool pathing = true;
+			while(pathing && gameSettings.gameIsOver == false)
 			{
-				//Track noise;
-				if(interestPointInView == false && (distanceX > 1.25f))
+				inputDirection = Vector2.zero;
+				float distanceX = Mathf.Abs(interestPoint.x - transform.position.x);
+
+				if(investigateInterestPoint == true)
+				{
+					//Track noise;
+					if(interestPointInView == false && (distanceX > 1.25f))
+					{
+						Vector2 direction = (interestPoint - (Vector2)this.transform.position).normalized;
+						inputDirection.x = direction.x;
+
+						interestPointInView = viewArea.bounds.Contains(interestPoint);
+
+						//Set max time to investigate a point just incase guard never reaches a close enogh point to start look timer.
+						investigateTime += Time.deltaTime;
+						if(investigateTime > maxTimeInvestigatePathing)
+						{
+							this.interestPoint = waypoints[waypointIndex];
+							investigateInterestPoint = false;
+						}
+
+						waitTime = 0;
+					} else
+					{
+						waitTime += Time.deltaTime;
+						if(waitTime > timeToInvestigateInterest)
+						{
+							this.interestPoint = waypoints[waypointIndex];
+							investigateInterestPoint = false;
+						}
+					}
+				} else
 				{
 					Vector2 direction = (interestPoint - (Vector2)this.transform.position).normalized;
 					inputDirection.x = direction.x;
+				}
 
-					interestPointInView = viewArea.bounds.Contains(interestPoint);
+				lookAt.UpdateLookAt(interestPoint);
 
-					//Set max time to investigate a point just incase guard never reaches a close enogh point to start look timer.
-					investigateTime += Time.deltaTime;
-					if(investigateTime > maxTimeInvestigatePathing)
-					{
-						this.interestPoint = waypoints[waypointIndex];
-						investigateInterestPoint = false;
-					}
+				float targetVelocityX = inputDirection.x * moveSpeed;
+				velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXsmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
+				velocity.y += Controller2D.gravity * Time.deltaTime;
 
-					waitTime = 0;
-				} else
+				controller.Move(velocity * Time.deltaTime);
+
+				if((this.controller.collisions.left == true && Mathf.Sign(targetVelocityX) == -1) || (this.controller.collisions.right == true && Mathf.Sign(targetVelocityX) == 1))
 				{
-					waitTime += Time.deltaTime;
-					if(waitTime > timeToInvestigateInterest)
+					if(this.controller.horizontalCollision != null && this.controller.horizontalCollision.layer == 14)
 					{
-						this.interestPoint = waypoints[waypointIndex];
-						investigateInterestPoint = false;
+						pathing = false;
 					}
 				}
-			} else
-			{
-				Vector2 direction = (interestPoint - (Vector2)this.transform.position).normalized;
-				inputDirection.x = direction.x;
+				yield return null;
 			}
 
-			lookAt.UpdateLookAt(interestPoint);
-
-			float targetVelocityX = inputDirection.x * moveSpeed;
-			velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXsmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
-			velocity.y += Controller2D.gravity * Time.deltaTime;
-
-			controller.Move(velocity * Time.deltaTime);
-
-			if((this.controller.collisions.left == true && Mathf.Sign(targetVelocityX) == -1) || (this.controller.collisions.right == true && Mathf.Sign(targetVelocityX) == 1))
-			{
-				if(this.controller.horizontalCollision != null && this.controller.horizontalCollision.layer == 14)
-				{
-					pathing = false;
-				}
-			}
-			yield return null;
+			StartCoroutine(WaitAtPoint());
 		}
-
-		StartCoroutine(WaitAtPoint());
 	}
 
 	private IEnumerator WaitAtPoint()
 	{
-		float timer = 0;
-		while(timer < timeBetweenWaypoints)
+		if(gameSettings.gameIsOver == false)
 		{
-			lookAt.UpdateLookAt(interestPoint);
-			timer += Time.deltaTime;
-			yield return null;
+			float timer = 0;
+			while(timer < timeBetweenWaypoints)
+			{
+				lookAt.UpdateLookAt(interestPoint);
+				timer += Time.deltaTime;
+				yield return null;
+			}
+
+			waypointIndex = (waypointIndex + 1) % waypoints.Length;
+			this.interestPoint = waypoints[waypointIndex];
+
+			StartCoroutine(MoveInDirection());
 		}
-
-		waypointIndex = (waypointIndex + 1) % waypoints.Length;
-		this.interestPoint = waypoints[waypointIndex];
-
-		StartCoroutine(MoveInDirection());
-	}
-
-	// Update is called once per frame
-	void Update () {
 	}
 }
