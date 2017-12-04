@@ -11,9 +11,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f957a0927ee424368a3ad97ca3dff8b0, type: 3}
   m_Name: GameSettings
   m_EditorClassIdentifier: 
-  difficulty: 1
+  difficulty: 0
   gameIsOver: 0
   caughtTimeSettings:
   - 1
   - 0.5
   - 0.25
+  gameTime: 7.3050523
