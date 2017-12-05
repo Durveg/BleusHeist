@@ -100,6 +100,7 @@ public class PlayerNoiseManager : MonoBehaviour {
 			{
 				this.noiseTimer = 0;
 				SoundManager.instance.PlayFootStepSound();
+
 				MakeSoundInRadius();
 //				StartCoroutine(ExpandNoiseCircle());
 			}

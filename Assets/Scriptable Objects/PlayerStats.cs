@@ -14,6 +14,8 @@ public class PlayerStats : ScriptableObject {
 	PlayerStats()
 	{
 		jewelsPickedUp = new Stack<Interactable>();
+		jewelsPickedUp.Clear();
+
 		registeredInteractables = new List<Interactable>();
 		JewelValue = 0;
 	}
@@ -73,6 +75,11 @@ public class PlayerStats : ScriptableObject {
 	{
 		JewelValue = 0;
 		returnedJewels = 0;
+
 		totalJewels = 0;
+		if(registeredInteractables != null)
+		{
+			registeredInteractables.Clear();
+		}
 	}
 }
