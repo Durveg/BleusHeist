@@ -90,6 +90,10 @@ public class EnemyMovement : MonoBehaviour {
 			interestPoint = waypoints[this.waypointIndex];
 		}
 
+		//Adding some variance to the pathing speeds and wait at waypoint times:
+		this.moveSpeed *= Random.Range(1.0f, 1.15f);
+		this.timeBetweenWaypoints *= Random.Range(1.0f, 1.15f);
+
 		StartCoroutine(MoveInDirection());
 	}
 		
