@@ -5281,7 +5281,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EventName: Player Won
   m_TrackableProperty:
-    m_Fields: []
+    m_Fields:
+    - m_ParamName: TimeToWin
+      m_Target: {fileID: 1377210821}
+      m_FieldPath: GameTimeInSeconds
+      m_TypeString: 
+      m_DoStatic: 0
+      m_StaticString: 
   m_Trigger: 0
 --- !u!1 &1412133119
 GameObject:

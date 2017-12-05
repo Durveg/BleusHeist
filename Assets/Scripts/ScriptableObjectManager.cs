@@ -9,6 +9,11 @@ public class ScriptableObjectManager : MonoBehaviour {
 	[SerializeField]
 	private PlayerStats playerStats;
 
+	public float GameTimeInSeconds
+	{
+		get { return gameSettings.gameTime; }
+	}
+
 	void Awake () {
 
 		playerStats.ResetValues();
