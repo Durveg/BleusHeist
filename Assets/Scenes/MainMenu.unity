@@ -5143,7 +5143,7 @@ MonoBehaviour:
     Bleu is a master thief so he can hang on ceilings and walls endlessly
 
 
-    Bring all jewels back to the drop off point as quick as possible to win.
+    Stash all the jewels in the drop off point as quick as possible to win.
 
 
     Have fun!'
@@ -5213,7 +5213,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1509050188}
-    characterCount: 208
+    characterCount: 207
     spriteCount: 0
     spaceCount: 42
     wordCount: 40

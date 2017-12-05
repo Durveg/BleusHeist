@@ -22,8 +22,9 @@ public class PlayerNoiseManager : MonoBehaviour {
 	private int jewels = 0;
 
 	[SerializeField]
-	private float noiseRate = 0.25f;
+	private float noiseRate = 0.5f;
 	private float noiseTimer = 0;
+	private float noiseEventTimer = 0;
 
 	[SerializeField]
 	private GameObject expandCircle;
@@ -96,13 +97,18 @@ public class PlayerNoiseManager : MonoBehaviour {
 			(controllerData.playerVelocity.y < -0.05f && controllerData.inputDirection.y < 0 && controllerData.isSliding == true))
 		{
 			this.noiseTimer += Time.deltaTime;
+			this.noiseEventTimer += Time.deltaTime;
+
+			if(this.noiseEventTimer > this.noiseRate / 2)
+			{
+				this.noiseEventTimer = 0;
+				MakeSoundInRadius();
+			}
+
 			if(this.noiseTimer > this.noiseRate)
 			{
 				this.noiseTimer = 0;
 				SoundManager.instance.PlayFootStepSound();
-
-				MakeSoundInRadius();
-//				StartCoroutine(ExpandNoiseCircle());
 			}
 		}
 	}
