@@ -12,7 +12,7 @@ public class Interactable : MonoBehaviour {
 
 	void OnEnable()
 	{
-		playerStats.RegisterJewel();
+		playerStats.RegisterJewel(this);
 		SetValue(value);
 	}
 

@@ -9,10 +9,12 @@ public class PlayerStats : ScriptableObject {
 	private GameSettings gameSettings;
 
 	public Stack<Interactable> jewelsPickedUp;
+	private List<Interactable> registeredInteractables;
 
 	PlayerStats()
 	{
 		jewelsPickedUp = new Stack<Interactable>();
+		registeredInteractables = new List<Interactable>();
 		JewelValue = 0;
 	}
 
@@ -25,9 +27,13 @@ public class PlayerStats : ScriptableObject {
 		returnedJewels++;
 	}
 
-	public void RegisterJewel()
+	public void RegisterJewel(Interactable jewel)
 	{
-		totalJewels++;
+		if(registeredInteractables.Contains(jewel) == false)
+		{
+			registeredInteractables.Add(jewel);
+			totalJewels = registeredInteractables.Count;
+		}
 	}
 
 	public void PickedUpJewel(Interactable pickedUp)
