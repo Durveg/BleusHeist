@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 public class EasterEggCollider : MonoBehaviour {
 	[SerializeField]
@@ -9,6 +10,11 @@ public class EasterEggCollider : MonoBehaviour {
 	private Vector2 cameraNormalBounds;
 	[SerializeField]
 	private Vector2 cameraEasterEggBounds = new Vector2(12.25f, 100);
+
+	[SerializeField]
+	private AnalyticsTracker playerFoundEasterEgg;
+
+	private bool eggFound = false;
 
 	void OnEnable()
 	{
@@ -20,6 +26,12 @@ public class EasterEggCollider : MonoBehaviour {
 		if(other.transform.tag == "Player")
 		{
 			cameraNormalBounds = cameraFollow.SetEasterEggBounds(cameraEasterEggBounds);
+
+			if(eggFound == false)
+			{
+				eggFound = true;
+				playerFoundEasterEgg.TriggerEvent();
+			}
 		}
 	}
 

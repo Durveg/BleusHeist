@@ -37,6 +37,12 @@ public class CameraFollow : MonoBehaviour {
 
 	private FocusArea focusArea;
 
+	[SerializeField]
+	private Camera mainCamera;
+
+	[SerializeField]
+	private float cameraSize;
+
 	struct FocusArea
 	{
 		public Vector2 center;
@@ -99,7 +105,7 @@ public class CameraFollow : MonoBehaviour {
 	}
 
 	void Start () {
-
+		AdjustCameraOrthoSize();
 	}
 
 	void LateUpdate()
@@ -147,5 +153,14 @@ public class CameraFollow : MonoBehaviour {
 	{
 		Gizmos.color = new Color(1, 0, 0, 0.5f);
 		Gizmos.DrawCube(focusArea.center, focusAreaSize);
+	}
+
+	private void AdjustCameraOrthoSize() 
+	{
+		// Sets the orthographic size of the screen to match the proper width of the objects in the scene
+		float size = this.cameraSize / (2 * this.mainCamera.aspect);
+		Debug.Log(size);
+		size = Mathf.Round(size * 1000f) / 1000f;
+		this.mainCamera.orthographicSize = size;
 	}
 }

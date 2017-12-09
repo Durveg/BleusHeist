@@ -71,6 +71,7 @@ GameObject:
   - component: {fileID: 4805195681086308}
   - component: {fileID: 61199247070361092}
   - component: {fileID: 114635231460764726}
+  - component: {fileID: 114653485577400520}
   m_Layer: 0
   m_Name: EasterEggCollider
   m_TagString: Untagged
@@ -173,7 +174,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 1.45, y: 1}
+  m_Offset: {x: 0.4, y: 1}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -199,6 +200,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraFollow: {fileID: 0}
   cameraEasterEggBounds: {x: 12.25, y: 100}
+  playerFoundEasterEgg: {fileID: 114653485577400520}
+--- !u!114 &114653485577400520
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1750610095930536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 207469858, guid: 220224b43fc464c28bc0e8de8f54a432, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventName: Easter Egg Found
+  m_TrackableProperty:
+    m_Fields: []
+  m_Trigger: 0
 --- !u!114 &114709344796310364
 MonoBehaviour:
   m_ObjectHideFlags: 1
