@@ -159,7 +159,6 @@ public class CameraFollow : MonoBehaviour {
 	{
 		// Sets the orthographic size of the screen to match the proper width of the objects in the scene
 		float size = this.cameraSize / (2 * this.mainCamera.aspect);
-		Debug.Log(size);
 		size = Mathf.Round(size * 1000f) / 1000f;
 		this.mainCamera.orthographicSize = size;
 	}
