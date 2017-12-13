@@ -26,6 +26,9 @@ public class SettingsManager : MonoBehaviour {
 	[SerializeField]
 	private Toggle muteToggle;
 
+	[SerializeField]
+	private GameObject[] UIElements;
+
 	void Awake()
 	{
 		this.CloseSettingsManager();
@@ -46,13 +49,21 @@ public class SettingsManager : MonoBehaviour {
 	public void CloseSettingsManager()
 	{
 		settingsCanvas.enabled = false;
+		foreach(GameObject obj in UIElements)
+		{
+			obj.SetActive(false);
+		}
 	}
 
 	public void OpenSettingsManager()
 	{
 		settingsCanvas.enabled = true;
+		foreach(GameObject obj in UIElements)
+		{
+			obj.SetActive(true);
+		}
 	}
-
+		
 	public void SetMasterVolume(float percentVol)
 	{
 		volumeControl.MasterVolumeScale = percentVol;

@@ -793,6 +793,12 @@ MonoBehaviour:
   musicSlider: {fileID: 590855753}
   soundFXSlider: {fileID: 227696272}
   muteToggle: {fileID: 1220285109}
+  UIElements:
+  - {fileID: 1731579332}
+  - {fileID: 590855751}
+  - {fileID: 227696270}
+  - {fileID: 1220285107}
+  - {fileID: 1797824903}
 --- !u!223 &123373939
 Canvas:
   m_ObjectHideFlags: 0
@@ -3388,6 +3394,12 @@ MonoBehaviour:
   canvas: {fileID: 574313644}
   timeText: {fileID: 1603823813}
   jewelsText: {fileID: 280959859}
+  UIElements:
+  - {fileID: 434390877}
+  - {fileID: 1248303688}
+  - {fileID: 870247357}
+  - {fileID: 217790271}
+  - {fileID: 1367899214}
 --- !u!1 &590855751
 GameObject:
   m_ObjectHideFlags: 0
@@ -5675,7 +5687,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 919306808}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.000061035156, y: 0, z: 0}
   m_LocalScale: {x: 1.000005, y: 1.000005, z: 1.000005}
   m_Children:
   - {fileID: 484744371}
@@ -5705,6 +5717,12 @@ MonoBehaviour:
   timeText: {fileID: 285481689}
   playerWonEvent: {fileID: 1377210822}
   quitButton: {fileID: 779784930}
+  UIElements:
+  - {fileID: 1540752342}
+  - {fileID: 1331579387}
+  - {fileID: 492712426}
+  - {fileID: 779784930}
+  - {fileID: 1594434210}
 --- !u!223 &919306811
 Canvas:
   m_ObjectHideFlags: 0
@@ -6527,8 +6545,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1094038636}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 560.5, y: 288.5, z: 0}
-  m_LocalScale: {x: 0.5585065, y: 0.5585065, z: 0.5585065}
+  m_LocalPosition: {x: 519, y: 292, z: 0}
+  m_LocalScale: {x: 0.54068285, y: 0.54068285, z: 0.54068285}
   m_Children:
   - {fileID: 1193814998}
   - {fileID: 574313641}
@@ -8900,7 +8918,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1412133119}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.000061035156, y: 0, z: 0}
   m_LocalScale: {x: 1.000005, y: 1.000005, z: 1.000005}
   m_Children:
   - {fileID: 2083755458}
@@ -8927,6 +8945,13 @@ MonoBehaviour:
   controllerData: {fileID: 11400000, guid: 834e7625b334a4b8e965192b4984ed4d, type: 2}
   canvas: {fileID: 1412133122}
   quitButton: {fileID: 498276839}
+  UIElements:
+  - {fileID: 1945421709}
+  - {fileID: 1249529101}
+  - {fileID: 924451304}
+  - {fileID: 1177913190}
+  - {fileID: 498276839}
+  - {fileID: 500153177}
 --- !u!223 &1412133122
 Canvas:
   m_ObjectHideFlags: 0

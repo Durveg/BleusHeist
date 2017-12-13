@@ -24,11 +24,18 @@ public class GameWonScript : MonoBehaviour {
 	[SerializeField]
 	private GameObject quitButton;
 
+	[SerializeField]
+	private GameObject[] UIElements;
+
 	private void GameWon()
 	{
 		playerWonEvent.TriggerEvent();
 
 		canvas.enabled = true;
+		foreach(GameObject obj in UIElements)
+		{
+			obj.SetActive(true);
+		}
 
 		float minutes = Mathf.Floor(gameSettings.gameTime / 60); 
 		float seconds = Mathf.RoundToInt(gameSettings.gameTime % 60);
@@ -50,6 +57,11 @@ public class GameWonScript : MonoBehaviour {
 	void OnEnable()
 	{
 		canvas.enabled = false;
+		foreach(GameObject obj in UIElements)
+		{
+			obj.SetActive(false);
+		}
+
 		gameSettings.GameWonEvent += GameWon;
 
 

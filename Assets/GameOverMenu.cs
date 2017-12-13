@@ -23,9 +23,18 @@ public class GameOverMenu : MonoBehaviour {
 	[SerializeField]
 	private TextMeshProUGUI jewelsText;
 
+	[SerializeField]
+	private GameObject[] UIElements;
+
 	private void GameOver()
 	{
 		canvas.enabled = true;
+		foreach(GameObject obj in UIElements)
+		{
+			obj.SetActive(true);
+		}
+
+		playerStats.timesPlayerCaught++;
 
 		float minutes = Mathf.Floor(gameSettings.gameTime / 60); 
 		float seconds = Mathf.RoundToInt(gameSettings.gameTime % 60);
@@ -48,6 +57,11 @@ public class GameOverMenu : MonoBehaviour {
 	void OnEnable()
 	{
 		canvas.enabled = false;
+		foreach(GameObject obj in UIElements)
+		{
+			obj.SetActive(false);
+		}
+
 		gameSettings.GameOverEvent += GameOver;
 
 		#if UNITY_WEBGL

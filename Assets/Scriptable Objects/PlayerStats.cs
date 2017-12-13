@@ -23,6 +23,7 @@ public class PlayerStats : ScriptableObject {
 	public int JewelValue;
 	public int returnedJewels;
 	public int totalJewels;
+	public int timesPlayerCaught;
 
 	public void ReturnedJewel()
 	{

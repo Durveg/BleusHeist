@@ -13,9 +13,12 @@ public class PauseMenuUI : MonoBehaviour {
 	[SerializeField]
 	private GameObject quitButton;
 
+	[SerializeField]
+	private GameObject[] UIElements;
+
 	void Start()
 	{
-		canvas.enabled = false;
+		DisableUI();
 	}
 
 	void OnEnable()
@@ -35,6 +38,19 @@ public class PauseMenuUI : MonoBehaviour {
 	private void GamePaused()
 	{
 		canvas.enabled = true;	
+		foreach(GameObject obj in UIElements)
+		{
+			obj.SetActive(true);
+		}
+	}
+
+	private void DisableUI()
+	{
+		canvas.enabled = false;
+		foreach(GameObject obj in UIElements)
+		{
+			obj.SetActive(false);
+		}
 	}
 
 	public void ResetButtonClicked()
@@ -56,7 +72,7 @@ public class PauseMenuUI : MonoBehaviour {
 
 	public void ResumeGameClicked()
 	{
-		canvas.enabled = false;
+		DisableUI();
 		controllerData.UnPauseGame();
 	}
 }
