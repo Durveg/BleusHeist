@@ -92,7 +92,7 @@ public class SettingsManager : MonoBehaviour {
 		float db = 0;
 		if(linear != 0)
 		{
-			db = 20.0f * Mathf.Log10(linear);
+			db = 30.0f * Mathf.Log10(linear);
 		}
 
 		if(db < -55 || linear == 0)
