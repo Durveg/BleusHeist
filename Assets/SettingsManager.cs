@@ -67,22 +67,32 @@ public class SettingsManager : MonoBehaviour {
 	public void SetMasterVolume(float percentVol)
 	{
 		volumeControl.MasterVolumeScale = percentVol;
-		float dbVol = CalcDBVol(percentVol);
-		masterMixer.SetFloat("MasterVolume", dbVol);
+		if(volumeControl.MasterMuted == false)
+		{
+			float dbVol = CalcDBVol(percentVol);
+			masterMixer.SetFloat("MasterVolume", dbVol);
+		}
 	}
 
 	public void SetMusicVolume(float percentVol) 
 	{
 		volumeControl.MusicVolumeScale = percentVol;
-		float dbVol = CalcDBVol(percentVol);
-		masterMixer.SetFloat("MusicVolume", dbVol);
+		if(volumeControl.MasterMuted == false)
+		{
+			float dbVol = CalcDBVol(percentVol);
+			masterMixer.SetFloat("MusicVolume", dbVol);
+		}
 	}
 
 	public void SetSoundFXVolume(float percentVol)
 	{
 		volumeControl.SoundFXVolumeScale = percentVol;
-		float dbVol = CalcDBVol(percentVol);
-		masterMixer.SetFloat("SoundFXVolume", dbVol);
+
+		if(volumeControl.MasterMuted == false)
+		{
+			float dbVol = CalcDBVol(percentVol);
+			masterMixer.SetFloat("SoundFXVolume", dbVol);
+		}
 	}
 
 	public void MuteToggled(bool toggled)

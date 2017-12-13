@@ -22,7 +22,6 @@ public class AnalyticManager : MonoBehaviour {
 	void Start()
 	{
 		DontDestroyOnLoad(this.gameObject);
-		gameSettings.GameOverEvent += OnPlayerCaught;
 	}
 
 	void OnApplicationQuit()
@@ -34,7 +33,6 @@ public class AnalyticManager : MonoBehaviour {
 	void OnPlayerCaught()
 	{
 		UpdateValues();
-//		PlayerCaughtEvent.TriggerEvent();
 	}
 
 	private void UpdateValues()

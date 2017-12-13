@@ -33,6 +33,9 @@ public class GameOverMenu : MonoBehaviour {
 		{
 			obj.SetActive(true);
 		}
+		#if UNITY_WEBGL
+		quitButton.SetActive(false);
+		#endif
 
 		playerStats.timesPlayerCaught++;
 

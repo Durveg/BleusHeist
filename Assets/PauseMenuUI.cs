@@ -24,10 +24,6 @@ public class PauseMenuUI : MonoBehaviour {
 	void OnEnable()
 	{
 		controllerData.PauseGameButtonEvent += GamePaused;
-
-		#if UNITY_WEBGL
-		quitButton.SetActive(false);
-		#endif
 	}
 
 	void OnDisable()
@@ -42,6 +38,10 @@ public class PauseMenuUI : MonoBehaviour {
 		{
 			obj.SetActive(true);
 		}
+
+		#if UNITY_WEBGL
+		quitButton.SetActive(false);
+		#endif
 	}
 
 	private void DisableUI()

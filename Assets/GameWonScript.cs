@@ -36,6 +36,9 @@ public class GameWonScript : MonoBehaviour {
 		{
 			obj.SetActive(true);
 		}
+		#if UNITY_WEBGL
+		quitButton.SetActive(false);
+		#endif
 
 		float minutes = Mathf.Floor(gameSettings.gameTime / 60); 
 		float seconds = Mathf.RoundToInt(gameSettings.gameTime % 60);
